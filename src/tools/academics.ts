@@ -336,12 +336,7 @@ export function registerAcademicTools(server: McpServer): void {
     async ({ gioi_han, offset }) => {
       const api = getApi();
       const userid = await api.userId();
-      const data = await api.call("core_message_get_conversations", {
-        userid,
-        type: "private",
-        limit: gioi_han ?? 20,
-        offset: offset ?? 0,
-      });
+      const data = await api.call("core_message_get_conversations", { userid });
       const convs = data?.conversations ?? [];
       return {
         content: [

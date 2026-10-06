@@ -224,7 +224,7 @@ export function registerAssignmentTools(server: McpServer): void {
     {
       title: "Nộp bài tập",
       description:
-        "Nộp bài cho assignment. Có thể nộp FILE (đường dẫn local), TEXT (nộp trực tuyến) hoặc cả hai. Mặc định chỉ LƯU BẢN NHÁP (an toàn, chưa giao bài cho GV); đặt submit=true để nộp thật. Luôn trả về trạng thái mới nhất sau khi nộp.",
+        "Nộp bài cho assignment. Có thể nộp FILE (đường dẫn local), TEXT (nộp trực tuyến) hoặc cả hai. Mặc định chỉ LƯU BÀI (không gọi submit for grading); đặt submit=true để nộp thật. Lưu ý: site hiện tại tắt chế độ nháp (submissiondrafts=0) nên chỉ lưu cũng tương đương nộp cho GV. Luôn trả về trạng thái mới nhất.",
       inputSchema: {
         assignid: z.number().int().describe("ID assignment"),
         files: z.array(z.string()).optional().describe("Danh sách đường dẫn file cần nộp (tối đa số file mà môn cho phép)"),
@@ -301,7 +301,7 @@ export function registerAssignmentTools(server: McpServer): void {
         submitted = true;
         steps.push("Đã nộp cho giảng viên (submit for grading).");
       } else {
-        steps.push("Chưa nộp cho giảng viên — đây chỉ là bản nháp. Gọi lại với submit=true để nộp thật.");
+        steps.push(`Đã lưu bài (chưa gọi submit for grading). Lưu ý: site tắt draft, nên trạng thái thường là 'submitted'. Đặt submit=true nếu muốn nộp chính thức.`);
       }
 
       const after = await submissionStatus(assignid);

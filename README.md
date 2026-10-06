@@ -55,7 +55,7 @@ Xem `configs/` để copy vào:
 | `list_announcements` / `get_forum_discussions` | Thông báo & diễn đàn |
 | `list_assignments` | DS bài nộp (lọc theo hạn) |
 | `get_submission_status` | Xem bài đã nộp |
-| `submit_assignment` | Nộp bài (file/text, nháp hoặc thật) |
+| `submit_assignment` | Nộp bài (file/text; site TẮT chế độ nháp nên lưu = submitted) |
 | `get_upcoming_deadlines` | Hạn nộp sắp tới |
 | `get_grades` | Bảng điểm |
 | `list_quizzes` / `get_quiz_info` / `start_quiz_attempt` / `get_quiz_attempt` | Quiz |
@@ -67,6 +67,7 @@ Xem `configs/` để copy vào:
 ## Lưu ý
 
 - Site bật webservice cho mobile (`moodle_mobile_app`) nên không cần cấp quyền admin.
-- `submit_assignment` mặc định chỉ **lưu nháp**; đặt `submit=true` để nộp thật cho giảng viên.
+- `submit_assignment` mặc định chỉ **lưu bài** (không gọi submit for grading). Lưu ý: site TẮT chế độ nháp nên lưu = bài đã nộp (trạng thái `submitted`). Đặt `submit=true` để gọi submit formally.
+
 - Một số function yêu cầu quyền giảng viên (`mod_assign_get_submissions`, `mod_assign_save_grade`, …) — sinh viên không gọi được.
 - Việc nộp bài/quiz ghi **dữ liệu thật** — hãy chắc chắn trước khi dùng.

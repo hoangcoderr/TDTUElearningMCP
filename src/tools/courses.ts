@@ -174,7 +174,7 @@ export function registerCourseTools(server: McpServer): void {
     async ({ query, page, perpage }) => {
       const api = getApi();
       const data = await api.call("core_course_search_courses", {
-        criterianame: "all",
+        criterianame: "search",
         criteriavalue: query,
         page: page ?? 1,
         perpage: perpage ?? 20,
