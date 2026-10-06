@@ -1,0 +1,14 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "tdtu-elearning": {
+      "type": "local",
+      "command": ["node", "/ABS/PATH/TO/tdtu-mcp/dist/index.js"],
+      "environment": {
+        "TDTU_MSSV": "your_student_id",
+        "TDTU_PASSWORD": "your_password"
+      },
+      "enabled": true
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "tdtu-elearning": {
+      "command": "node",
+      "args": ["/ABS/PATH/TO/tdtu-mcp/dist/index.js"],
+      "env": {
+        "TDTU_MSSV": "your_student_id",
+        "TDTU_PASSWORD": "your_password"
+      }
+    }
+  }
+}
