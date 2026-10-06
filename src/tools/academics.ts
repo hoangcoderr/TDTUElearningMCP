@@ -281,8 +281,8 @@ export function registerAcademicTools(server: McpServer): void {
     },
     async ({ attemptid }) => {
       const api = getApi();
-      const data = await api.call("mod_quiz_get_attempt_data", { attemptid }).catch(async (e) => {
-        const rev = await api.call("mod_quiz_get_attempt_review", { attemptid }).catch(() => null);
+      const data = await api.call("mod_quiz_get_attempt_data", { attemptid, page: 0 }).catch(async (e) => {
+        const rev = await api.call("mod_quiz_get_attempt_review", { attemptid, page: 0 }).catch(() => null);
         if (rev) return rev;
         throw e;
       });
