@@ -25,6 +25,10 @@ export type Params = Record<string, unknown>;
 export function flattenParams(params: Params, prefix = "", out: Record<string, string> = {}): Record<string, string> {
   const assign = (key: string, raw: unknown): void => {
     if (raw === undefined || raw === null || raw === "") return;
+    if (typeof raw === "boolean") {
+      out[key] = raw ? "1" : "0";
+      return;
+    }
     if (Array.isArray(raw)) {
       raw.forEach((v, i) => assign(`${key}[${i}]`, v));
     } else if (typeof raw === "object") {
