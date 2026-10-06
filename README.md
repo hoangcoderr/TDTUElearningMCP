@@ -75,15 +75,114 @@ Log sẽ in ra stderr; MCP giao tiếp JSON qua stdout.
 
 ## Kết nối với AI client
 
-Copy nội dung phù hợp trong `configs/` vào cấu hình của client:
+Tất cả client đều dùng chung 1 cách: chạy `node dist/index.js` và truyền env
+`TDTU_MSSV` + `TDTU_PASSWORD`. Thư mục `configs/` có mẫu cho từng client —
+bạn chỉ cần sửa đường dẫn tuyệt đối tới `dist/index.js` và điền thông tin đăng nhập.
 
-- Claude Desktop → `~/.config/Claude/claude_desktop_config.json`
-- Cursor → `~/.cursor/mcp.json`
-- VS Code → `.vscode/mcp.json`
-- OpenCode → `~/.config/opencode/opencode.json`
+### Claude Code (CLI)
+Tạo file `.mcp.json` ở gốc dự án (project-scope):
 
-Mỗi file chỉ cần sửa đường dẫn tuyệt đối tới `dist/index.js` và điền
-`TDTU_MSSV`/`TDTU_PASSWORD`.
+```bash
+cat > .mcp.json <<'JSON'
+{
+  "mcpServers": {
+    "tdtu-elearning": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/ABS/PATH/TO/tdtu-mcp/dist/index.js"],
+      "env": {
+        "TDTU_MSSV": "your_student_id",
+        "TDTU_PASSWORD": "your_password"
+      }
+    }
+  }
+}
+JSON
+```
+
+Hoặc thêm bằng CLI (user-scope):
+
+```bash
+claude mcp add tdtu-elearning --scope user \
+  -e TDTU_MSSV=your_student_id \
+  -e TDTU_PASSWORD=your_password \
+  -- node /ABS/PATH/TO/tdtu-mcp/dist/index.js
+```
+
+### Codex
+Sửa `~/.codex/config.toml`, thêm:
+
+```toml
+[mcp_servers.tdtu-elearning]
+command = "node"
+args = ["/ABS/PATH/TO/tdtu-mcp/dist/index.js"]
+env = { TDTU_MSSV = "your_student_id", TDTU_PASSWORD = "your_password" }
+```
+
+### OpenCode
+Sửa `~/.config/opencode/opencode.json` (tạo mới nếu chưa có):
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "tdtu-elearning": {
+      "type": "local",
+      "command": ["node", "/ABS/PATH/TO/tdtu-mcp/dist/index.js"],
+      "environment": {
+        "TDTU_MSSV": "your_student_id",
+        "TDTU_PASSWORD": "your_password"
+      },
+      "enabled": true
+    }
+  }
+}
+```
+
+### Claude Desktop
+Sửa `~/.config/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "tdtu-elearning": {
+      "command": "node",
+      "args": ["/ABS/PATH/TO/tdtu-mcp/dist/index.js"],
+      "env": {
+        "TDTU_MSSV": "your_student_id",
+        "TDTU_PASSWORD": "your_password"
+      }
+    }
+  }
+}
+```
+
+### Cursor
+Sửa `~/.cursor/mcp.json` (hoặc `.cursor/mcp.json` trong workspace) — cùng schema
+với Claude Code (`mcpServers`).
+
+### VS Code
+Tạo `.vscode/mcp.json` trong workspace:
+
+```json
+{
+  "servers": {
+    "tdtu-elearning": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/ABS/PATH/TO/tdtu-mcp/dist/index.js"],
+      "env": {
+        "TDTU_MSSV": "your_student_id",
+        "TDTU_PASSWORD": "your_password"
+      }
+    }
+  }
+}
+```
+
+Mọi chỗ `/ABS/PATH/TO/tdtu-mcp` thay bằng đường dẫn thực tế của thư mục project.
+Sau khi sửa config, khởi động lại client (hoặc chạy `/mcp` trong Claude Code /
+OpenCode) để client nhận lại danh sách tool.
 
 ## Cách dùng nhanh
 
