@@ -24,7 +24,7 @@ const HINTS: Record<string, string> = {
   core_calendar_get_calendar_upcoming_view: "{ courseids?: [id] }",
   core_completion_get_activities_completion_status: "{ courseid, userid }",
   core_completion_get_course_completion_status: "{ courseid, userid? }",
-  core_user_get_users_by_field: "{ field: 'username'|'id'|'email', values: ['52300024'] }",
+  core_user_get_users_by_field: "{ field: 'username'|'id'|'email', values: ['<mssv>'] }",
   core_user_get_user_preferences: "{ userid? }",
   core_message_get_conversations: "{ userid, limit?, offset? } — KHÔNG truyền 'type'",
   core_message_send_instant_messages: "{ messages: [{ touserid, text, textformat: 1 }] }",

@@ -30,7 +30,7 @@ async function main(): Promise<void> {
         "tdtu-mcp — MCP server cho elearning.tdtu.edu.vn (Moodle)",
         "",
         "Biến môi trường:",
-        "  TDTU_MSSV      Mã số sinh viên (vd: 52300024)",
+        "  TDTU_MSSV      Mã số sinh viên (vd: your_student_id)",
         "  TDTU_PASSWORD  Mật khẩu",
         "  TDTU_ELEARNING_URL  (tùy chọn, mặc định https://elearning.tdtu.edu.vn)",
         "  TDTU_DOWNLOAD_DIR    (tùy chọn, nơi lưu file tải về)",
